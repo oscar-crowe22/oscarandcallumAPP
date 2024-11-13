@@ -1,0 +1,16 @@
+.navbar_items{
+    display: flex;
+}
+
+.navbar_item{
+    margin: 10px;
+}
+
+#nav_bar{
+    display: flex;
+    background-color: aliceblue;
+}
+
+#title{
+    margin-left: 20px;
+}
