@@ -39,6 +39,13 @@
     margin-bottom: 2px;
 }
 
+#instruction-text{
+    font-size: 2.5vw;
+    color: aliceblue;
+    text-align: center;
+    padding-top: 2vh;
+}
+
 #score-section{
     margin: 0;
     height: 10vh;
@@ -60,6 +67,30 @@
     height: 100%;
     width: 50%;
     background-color: rebeccapurple;
+}
+
+#player-label{
+    height: 20%;
+    width: 100%;
+    background-color: aquamarine;
+    margin: 0%;
+}
+
+#player-label-text{
+    font-size: 4vw;
+    text-align: center;
+}
+
+#dealer-label{
+    height: 20%;
+    width: 100%;
+    background-color: blanchedalmond;
+    margin: 0%;
+}
+
+#dealer-label-text{
+    font-size: 4vw;
+    text-align: center;
 }
 
 #dealer-area{
