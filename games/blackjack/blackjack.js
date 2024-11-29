@@ -18,8 +18,12 @@ let cards = ["../art/ace_of_clubs.svg", "../art/ace_of_diamonds.svg", "../art/ac
 ]
 let in_game = false
 
-num_player_cards = 0
-num_dealer_cards = 0
+let num_player_cards = 0
+let num_dealer_cards = 0
+
+let player_wins = 0
+let dealer_wins = 0
+
 
 
 async function play() {
@@ -28,13 +32,17 @@ async function play() {
     dealer_div = document.getElementById("dealer-cards")
     result_div = document.getElementById("result-text")
     prompt_div = document.getElementById("game-prompt")
+    score_div = document.getElementById("score-text")
     resetGame(player_div, dealer_div, result_div, prompt_div)
     in_game = true
+    score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
 
     getCard(player_div)
     num_player_cards++
+    await pauseForEffect()
     getCard(dealer_div)
     num_dealer_cards++
+    await pauseForEffect()
     getCard(player_div)
     num_player_cards++
 
@@ -48,6 +56,8 @@ async function play() {
       }
       if(player_poss[0] > 21){
         result_div.innerHTML = "You loose mate!!"
+        dealer_wins++
+        score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
         in_game = false
       }
     }
@@ -55,7 +65,9 @@ async function play() {
     if(in_game === true){
       if(player_poss[0] === 21){
         result_div.innerHTML = "Player Wins!!"
-        in_game == false
+        player_wins++
+        score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
+        in_game = false
       }
     }
     if(in_game){
@@ -66,16 +78,37 @@ async function play() {
   
       if(dealer_poss[0] > 21){
         result_div.innerHTML = "Player Wins!!"
+        player_wins++
+        score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
       }else if(dealer_poss[0] > player_poss[0]){
         result_div.innerHTML = "You loose mate!!"
+        dealer_wins++
+        score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
       }else if(dealer_poss[0] === player_poss[0]){
         result_div.innerHTML = "Push"
       }else{
         result_div.innerHTML = "You Win!!"
+        player_wins++
+        score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
       }
     }
     prompt_div.innerHTML = ""
     in_game = false
+    if(dealer_wins == 5){
+      score_div.innerHTML = "You've lost 5 games, see it off"
+      dealer_wins = 0
+      player_wins = 0
+    }else if(player_wins == 3){
+      score_div.innerHTML = "You've won 3 games, choose someone to see one off"
+      dealer_wins = 0
+      player_wins = 0
+    }
+}
+
+function pauseForEffect(){
+  return new Promise(resolve => {
+    setTimeout(resolve, 300)
+  })
 }
 
 function resetGame(player_div, dealer_div, result_div){

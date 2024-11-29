@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="blackjack.js"></script>
     <link rel="stylesheet" href="blackjack-styles.css"></link>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>BlackJack</title>
 </head>
 <body>
     <div id="top-section">
         <div id="menu">
-            <a href="../../index.html">Home</a>
+            <a id="home-link" href="../../index.html">
+                <i class="material-icons" id="house-icon">house</i>
+                <h1 id="home-link-text">Home</h1>
+            </a>
         </div>
         <div id="title">
             <h1 id="title-text">Black Jack-Daniels</h1>
@@ -23,7 +27,9 @@
         <div id="game-prompt-section">
             <h1 id="game-prompt"></h1>
         </div>
-        <div id="score-section"></div>
+        <div id="score-section">
+            <h1 id="score-text"></h1>
+        </div>
     </div>
     <div id="game-table">
         <div id="player-area">
