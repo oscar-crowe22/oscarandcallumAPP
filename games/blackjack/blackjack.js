@@ -1,5 +1,5 @@
 let player_poss = [2]
-let dealer_poss = [2]
+let dealer_poss = [2]  
 let hit = 72
 let stand = 83
 let cards = ["../art/ace_of_clubs.svg", "../art/ace_of_diamonds.svg", "../art/ace_of_hearts.svg", "../art/ace_of_spades.svg",
@@ -25,7 +25,7 @@ let player_wins = 0
 let dealer_wins = 0
 
 
-
+// main function running 1v1 blackjack game
 async function play() {
     // First deal initial cards me->dealer->me->dealer hidden
     player_div = document.getElementById("player-cards")
@@ -105,12 +105,14 @@ async function play() {
     }
 }
 
+// pause during dealing for effect
 function pauseForEffect(){
   return new Promise(resolve => {
     setTimeout(resolve, 300)
   })
 }
 
+// reset game params
 function resetGame(player_div, dealer_div, result_div){
   player_div.innerHTML = ""
   dealer_div.innerHTML = ""
