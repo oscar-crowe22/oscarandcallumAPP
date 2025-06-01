@@ -44,6 +44,18 @@ async function play() {
     getCard(player_div)
     num_player_cards++
 
+    // Check for blackjack
+    if(in_game === true){
+      for(let i = 0; i< player_poss.length; i++){
+        if(player_poss[i] === 21){
+          result_div.innerHTML = "BLACK JACK!!"
+          player_wins++
+          score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
+          in_game = false
+        }
+      }
+    }
+
     // Let the player continue hitting until they bust
     prompt_div.innerHTML = "Hit or Stand? (H/S)"
     let player_choice = 'd'
@@ -58,18 +70,6 @@ async function play() {
         dealer_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
         in_game = false
-      }
-    }
-
-    // Check for blackjack
-    if(in_game === true){
-      for(let i = 0; i< player_poss.length; i++){
-        if(player_poss[i] === 21){
-          result_div.innerHTML = "Player Wins!!"
-          player_wins++
-          score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
-          in_game = false
-        }
       }
     }
 
