@@ -30,6 +30,8 @@ async function play() {
     result_div = document.getElementById("result-text")
     prompt_div = document.getElementById("game-prompt")
     score_div = document.getElementById("score-text")
+    player_label_div = document.getElementById("player-label-text")
+    dealer_label_div = document.getElementById("dealer-label-text")
     resetGame(player_div, dealer_div, result_div, prompt_div)
     in_game = true
     score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
@@ -135,6 +137,8 @@ function resetGame(player_div, dealer_div, result_div){
   player_div.innerHTML = ""
   dealer_div.innerHTML = ""
   result_div.innerHTML = ""
+  player_label_div.innerHTML = "Player Has"
+  dealer_label_div.innerHTML = "Dealer Has"
   num_dealer_cards = 0
   num_player_cards = 0
   game_input = ''
@@ -164,8 +168,6 @@ function renderCard(cardNum, person){
   imgElement.style.left = `${index * 45}px`;
   person.appendChild(imgElement);
   updateScores(cardNum, person)
-  console.log('player scores:', player_poss);
-  console.log('dealer scores:', dealer_poss)
 }
 
 let player_poss = [2]
@@ -189,6 +191,11 @@ function updateScores(card_num, person){
       player_poss[0] += card_num
       player_poss[1] += card_num
     }
+    if(player_ace === true){
+      player_label_div.innerHTML = 'Player Has: ' + player_poss[0] + " " + player_poss[1];
+    }else{
+      player_label_div.innerHTML = 'Player Has: ' + player_poss[0];
+    }
   }else{
     if(card_num === 1 && dealer_ace === false){
       dealer_poss[0] += card_num
@@ -197,6 +204,11 @@ function updateScores(card_num, person){
     }else{
       dealer_poss[0] += card_num
       dealer_poss[1] += card_num
+    }
+    if(dealer_ace === true){
+      dealer_label_div.innerHTML = 'Dealer Has: ' + dealer_poss[0] + " " + dealer_poss[1];
+    }else{
+      dealer_label_div.innerHTML = 'Dealer Has: ' + dealer_poss[0];
     }
   }
 }
