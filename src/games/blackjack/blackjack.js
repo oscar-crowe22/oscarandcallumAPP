@@ -16,8 +16,6 @@ const cards = [
 const hit = 72 // KEY CODE FOR HITTING
 const stand = 83 // KEY CODE FOR STANDING
 
-let player_poss = [2]
-let dealer_poss = [2]  
 let in_game = false
 let num_player_cards = 0
 let num_dealer_cards = 0
@@ -65,32 +63,43 @@ async function play() {
 
     // Check for blackjack
     if(in_game === true){
-      if(player_poss[0] === 21){
-        result_div.innerHTML = "Player Wins!!"
-        player_wins++
-        score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
-        in_game = false
+      for(let i = 0; i< player_poss.length; i++){
+        if(player_poss[i] === 21){
+          result_div.innerHTML = "Player Wins!!"
+          player_wins++
+          score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
+          in_game = false
+        }
       }
     }
 
     // Dealer draws until > 16 or bust
     if(in_game){
       while(dealer_poss[0] < 17){
+        if(dealer_poss[1] > 16 && dealer_poss[1] < 22){
+          break;
+        }
         getCard(dealer_div)
         num_dealer_cards++
       }
+      const dealerBest = dealer_poss
+        .filter(score => score < 22) // keep only values under 22
+        .reduce((max, score) => Math.max(max, score), 0) ?? dealer_poss[0]
+      const playerBest = player_poss
+        .filter(score => score < 22) // keep only values under 22
+        .reduce((max, score) => Math.max(max, score), 0) ?? player_poss[0]
       // if the dealer busts
-      if(dealer_poss[0] > 21){
+      if(dealerBest > 21){
         result_div.innerHTML = "Player Wins!!"
         player_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
       // if the dealer has a better hand than the player
-      }else if(dealer_poss[0] > player_poss[0]){
+      }else if(dealerBest > playerBest){
         result_div.innerHTML = "You loose mate!!"
         dealer_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
       // if the scores are even --> push
-      }else if(dealer_poss[0] === player_poss[0]){
+      }else if(dealerBest === playerBest){
         result_div.innerHTML = "Push"
       // otherwise the plyer must have won
       }else{
@@ -133,6 +142,8 @@ function resetGame(player_div, dealer_div, result_div){
   player_poss[1] = 0
   dealer_poss[0] = 0
   dealer_poss[1] = 0
+  player_ace = false;
+  dealer_ace = false;
 }
 
 // get a random card
@@ -153,16 +164,40 @@ function renderCard(cardNum, person){
   imgElement.style.left = `${index * 45}px`;
   person.appendChild(imgElement);
   updateScores(cardNum, person)
+  console.log('player scores:', player_poss);
+  console.log('dealer scores:', dealer_poss)
 }
+
+let player_poss = [2]
+let dealer_poss = [2]  
+let player_ace = false;
+let dealer_ace = false;
 
 // update the corresponding score
 function updateScores(card_num, person){
   card_num = card_num + 1
+  // set all picture cards to a value of 10
   if(card_num > 10) card_num = 10
+
+  // update scores and handle ace conditions
   if(person === player_div){
-    player_poss[0] += card_num
+    if(card_num === 1 && player_ace === false){
+      player_poss[0] += card_num
+      player_poss[1] += 11
+      player_ace = true
+    }else{
+      player_poss[0] += card_num
+      player_poss[1] += card_num
+    }
   }else{
-    dealer_poss[0] += card_num
+    if(card_num === 1 && dealer_ace === false){
+      dealer_poss[0] += card_num
+      dealer_poss[1] += 11
+      dealer_ace = true
+    }else{
+      dealer_poss[0] += card_num
+      dealer_poss[1] += card_num
+    }
   }
 }
 
