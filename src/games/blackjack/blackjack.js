@@ -1,8 +1,5 @@
-let player_poss = [2]
-let dealer_poss = [2]  
-let hit = 72
-let stand = 83
-let cards = ["../art/ace_of_clubs.svg", "../art/ace_of_diamonds.svg", "../art/ace_of_hearts.svg", "../art/ace_of_spades.svg",
+const cards = [
+  "../art/ace_of_clubs.svg", "../art/ace_of_diamonds.svg", "../art/ace_of_hearts.svg", "../art/ace_of_spades.svg",
   "../art/2_of_clubs.svg", "../art/2_of_diamonds.svg", "../art/2_of_hearts.svg", "../art/2_of_spades.svg",
   "../art/3_of_clubs.svg", "../art/3_of_diamonds.svg", "../art/3_of_hearts.svg", "../art/3_of_spades.svg",
   "../art/4_of_clubs.svg", "../art/4_of_diamonds.svg", "../art/4_of_hearts.svg", "../art/4_of_spades.svg",
@@ -16,18 +13,20 @@ let cards = ["../art/ace_of_clubs.svg", "../art/ace_of_diamonds.svg", "../art/ac
   "../art/queen_of_clubs.svg", "../art/queen_of_diamonds.svg", "../art/queen_of_hearts.svg", "../art/queen_of_spades.svg",
   "../art/king_of_clubs.svg", "../art/king_of_diamonds.svg", "../art/king_of_hearts.svg", "../art/king_of_spades.svg",
 ]
-let in_game = false
+const hit = 72 // KEY CODE FOR HITTING
+const stand = 83 // KEY CODE FOR STANDING
 
+let player_poss = [2]
+let dealer_poss = [2]  
+let in_game = false
 let num_player_cards = 0
 let num_dealer_cards = 0
-
 let player_wins = 0
 let dealer_wins = 0
 
 
 // main function running 1v1 blackjack game
 async function play() {
-    // First deal initial cards me->dealer->me->dealer hidden
     player_div = document.getElementById("player-cards")
     dealer_div = document.getElementById("dealer-cards")
     result_div = document.getElementById("result-text")
@@ -37,6 +36,7 @@ async function play() {
     in_game = true
     score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
 
+    // First deal initial cards me->dealer->me->dealer hidden
     getCard(player_div)
     num_player_cards++
     await pauseForEffect()
@@ -46,6 +46,7 @@ async function play() {
     getCard(player_div)
     num_player_cards++
 
+    // Let the player continue hitting until they bust
     prompt_div.innerHTML = "Hit or Stand? (H/S)"
     let player_choice = 'd'
     while(player_choice != 's' && in_game === true){
@@ -62,6 +63,7 @@ async function play() {
       }
     }
 
+    // Check for blackjack
     if(in_game === true){
       if(player_poss[0] === 21){
         result_div.innerHTML = "Player Wins!!"
@@ -70,28 +72,35 @@ async function play() {
         in_game = false
       }
     }
+
+    // Dealer draws until > 16 or bust
     if(in_game){
       while(dealer_poss[0] < 17){
         getCard(dealer_div)
         num_dealer_cards++
       }
-  
+      // if the dealer busts
       if(dealer_poss[0] > 21){
         result_div.innerHTML = "Player Wins!!"
         player_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
+      // if the dealer has a better hand than the player
       }else if(dealer_poss[0] > player_poss[0]){
         result_div.innerHTML = "You loose mate!!"
         dealer_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
+      // if the scores are even --> push
       }else if(dealer_poss[0] === player_poss[0]){
         result_div.innerHTML = "Push"
+      // otherwise the plyer must have won
       }else{
         result_div.innerHTML = "You Win!!"
         player_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
       }
     }
+
+    // keep track of global score
     prompt_div.innerHTML = ""
     in_game = false
     if(dealer_wins == 5){
