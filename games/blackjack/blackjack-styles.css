@@ -52,19 +52,33 @@ a {
     margin-left: 25%;
 }
 
-#instruction-section{
+#control-section{
     margin: 0;
     height: 15vh;
     width: 100%;
     background-color: #32a852;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
 }
 
-#instruction-text{
-    font-size: 2.5vw;
-    color: aliceblue;
-    text-align: center;
-    padding-top: 2vh;
+.control-button{
+    height: 80%;
+    width: 20%;
+    margin-top: 10px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: burlywood;
 }
+
+#hit-button{
+    background-color: brown;
+}
+
+#stand-button{
+    background-color: #1f763a;
+}
+
 
 #mid-section{
     display: flex;
@@ -138,6 +152,8 @@ a {
     margin-left: 30%;
     margin-top: 2%;
     animation: slide-in 0.5s ease forwards;
+    height: 60%;
+    width: auto;
 }
 
 @keyframes slide-in {

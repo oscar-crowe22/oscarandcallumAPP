@@ -32,6 +32,15 @@ async function play() {
     score_div = document.getElementById("score-text")
     player_label_div = document.getElementById("player-label-text")
     dealer_label_div = document.getElementById("dealer-label-text")
+    buttons = {
+      play: document.getElementById("play-button"),
+      hit: document.getElementById("hit-button"),
+      stand: document.getElementById("stand-button")
+    }
+
+    buttons.hit.hidden = false;
+    buttons.stand.hidden = false;
+  
     resetGame(player_div, dealer_div, result_div, prompt_div)
     in_game = true
     score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
@@ -54,6 +63,8 @@ async function play() {
           player_wins++
           score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
           in_game = false
+          buttons.hit.hidden = true;
+          buttons.stand.hidden = true;
         }
       }
     }
@@ -62,7 +73,7 @@ async function play() {
     prompt_div.innerHTML = "Hit or Stand? (H/S)"
     let player_choice = 'd'
     while(player_choice != 's' && in_game === true){
-      player_choice = await waitingKeypress()
+      player_choice = await waitingButtonClick()
       if(player_choice === 'h'){
         getCard(player_div)
         num_player_cards++
@@ -72,6 +83,8 @@ async function play() {
         dealer_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
         in_game = false
+        buttons.hit.hidden = true;
+        buttons.stand.hidden = true;
       }
     }
 
@@ -114,6 +127,8 @@ async function play() {
     // keep track of global score
     prompt_div.innerHTML = ""
     in_game = false
+    buttons.hit.hidden = true;
+    buttons.stand.hidden = true;
     if(dealer_wins == 5){
       score_div.innerHTML = "You've lost 5 games, see it off"
       dealer_wins = 0
@@ -165,7 +180,7 @@ function renderCard(cardNum, person){
   imgElement.className = "cards"
   if(person === player_div) index = num_player_cards
   if(person === dealer_div) index = num_dealer_cards
-  imgElement.style.left = `${index * 45}px`;
+  imgElement.style.left = `${index * 32}px`;
   person.appendChild(imgElement);
   updateScores(cardNum, person)
 }
@@ -213,19 +228,30 @@ function updateScores(card_num, person){
   }
 }
 
-// Promise based key press handler
-function waitingKeypress() {
-    return new Promise((resolve) => {
-      document.addEventListener('keydown', onKeyHandler);
-      function onKeyHandler(e) {
-        if(e.keyCode === hit) {
-            resolve('h')
-        }else if(e.keyCode === stand){
-            resolve('s')
-        }
-      }
-    });
-  }
+function waitingButtonClick() {
+  return new Promise((resolve) => {
+    const hitBtn = document.getElementById('hit-button');
+    const standBtn = document.getElementById('stand-button');
+
+    hitBtn.addEventListener('click', onHit);
+    standBtn.addEventListener('click', onStand);
+
+    function onHit() {
+      cleanup();
+      resolve('h');
+    }
+
+    function onStand() {
+      cleanup();
+      resolve('s');
+    }
+
+    function cleanup() {
+      hitBtn.removeEventListener('click', onHit);
+      standBtn.removeEventListener('click', onStand);
+    }
+  });
+}
 
 // Live key press helper
 function whichKey(e) { 
