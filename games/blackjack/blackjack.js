@@ -79,7 +79,7 @@ async function play() {
         num_player_cards++
       }
       if(player_poss[0] > 21){
-        result_div.innerHTML = "You loose mate!!"
+        result_div.innerHTML = "You lose mate!!"
         dealer_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
         in_game = false
@@ -110,7 +110,7 @@ async function play() {
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
       // if the dealer has a better hand than the player
       }else if(dealerBest > playerBest){
-        result_div.innerHTML = "You loose mate!!"
+        result_div.innerHTML = "You lose mate!!"
         dealer_wins++
         score_div.innerHTML = "Player " + player_wins + " : " + dealer_wins + " Dealer"
       // if the scores are even --> push
@@ -129,8 +129,8 @@ async function play() {
     in_game = false
     buttons.hit.hidden = true;
     buttons.stand.hidden = true;
-    if(dealer_wins == 5){
-      score_div.innerHTML = "You've lost 5 games, see it off"
+    if(dealer_wins == 3){
+      score_div.innerHTML = "You've lost 3 games, see it off"
       dealer_wins = 0
       player_wins = 0
     }else if(player_wins == 3){
