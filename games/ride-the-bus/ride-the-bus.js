@@ -280,7 +280,7 @@ function evaluateGuess(guess, currentCard, nextCard) {
         
         // Check if this same card also gives us the 4th strike
         if (gameState.strikes >= 4) {
-            showDrinkModal("Bloody hell! Same card AND 4 strikes - down TWO drinks mate!");
+            showDrinkModal("Same card AND 4 strikes - down TWO drinks mate!");
             gameState.strikes = 0; // Reset strikes after hitting 4
             updateStrikeDisplay();
         } else {
