@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride the Bus - Oscar and Callum's Fun Site</title>
+    <link rel="stylesheet" href="ride-the-bus.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚌 Ride the Bus</h1>
+            <a href="../../index.html" class="back-button">← Back to Games</a>
+        </header>
+
+        <div class="game-area">
+            <!-- Game Board (visible with cards) -->
+            <div id="game-board" class="game-board hidden">
+                <!-- Strike Counter -->
+                <div class="strikes-container">
+                    <h3>Strikes: <span id="strike-count">0</span>/4</h3>
+                    <div class="strike-indicators">
+                        <div class="strike" id="strike-1"></div>
+                        <div class="strike" id="strike-2"></div>
+                        <div class="strike" id="strike-3"></div>
+                        <div class="strike" id="strike-4"></div>
+                    </div>
+                </div>
+
+                <!-- Card Piles -->
+                <div class="card-piles">
+                    <div class="pile" id="pile-1" data-position="1">
+                        <div class="pile-cards" id="cards-1"></div>
+                    </div>
+                    <div class="pile" id="pile-2" data-position="2">
+                        <div class="pile-cards" id="cards-2"></div>
+                    </div>
+                    <div class="pile" id="pile-3" data-position="3">
+                        <div class="pile-cards" id="cards-3"></div>
+                    </div>
+                    <div class="pile" id="pile-4" data-position="4">
+                        <div class="pile-cards" id="cards-4"></div>
+                    </div>
+                    <div class="pile" id="pile-5" data-position="5">
+                        <div class="pile-cards" id="cards-5"></div>
+                    </div>
+                </div>
+
+                <!-- Current Position Indicator -->
+                <div class="current-position">
+                    <div id="position-arrow" class="position-arrow">↑</div>
+                </div>
+
+                <!-- Direction Selection (shown below cards) -->
+                <div id="direction-selector" class="direction-selector">
+                    <h2>Choose your starting direction:</h2>
+                    <div class="direction-buttons">
+                        <button id="left-button" class="direction-btn">
+                            ← Start from Left
+                        </button>
+                        <button id="right-button" class="direction-btn">
+                            → Start from Right
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game Controls -->
+                <div class="game-controls">
+                    <div id="guess-area" class="guess-area hidden">
+                        <h3>Current card: <span id="current-card-value"></span></h3>
+                        <p>Will the next card be higher or lower?</p>
+                        <div class="guess-buttons">
+                            <button id="higher-button" class="guess-btn higher">
+                                📈 Higher
+                            </button>
+                            <button id="lower-button" class="guess-btn lower">
+                                📉 Lower
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="reveal-area" class="reveal-area hidden">
+                        <p id="reveal-text"></p>
+                        <button id="continue-button" class="continue-btn">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Reset Button -->
+                <button id="reset-button" class="reset-btn">🔄 Reset Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="drink-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>🍺 Down your drink!</h2>
+            <p id="drink-reason"></p>
+            <button id="drink-ok-button" class="modal-btn">OK</button>
+        </div>
+    </div>
+
+    <div id="deck-empty-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>📚 All cards used!</h2>
+            <p>You've used all the cards. What would you like to do?</p>
+            <div class="modal-buttons">
+                <button id="concede-button" class="modal-btn secondary">Concede</button>
+                <button id="continue-playing-button" class="modal-btn primary">Keep Playing</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="victory-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>🎉 Well done, you survived!</h2>
+            <p>Congratulations! You successfully rode the bus!</p>
+            <button id="victory-ok-button" class="modal-btn">Play Again</button>
+        </div>
+    </div>
+
+    <div id="result-modal" class="modal hidden">
+        <div class="modal-content result-modal">
+            <h2 id="result-title"></h2>
+            <p id="result-message"></p>
+        </div>
+    </div>
+
+    <script src="ride-the-bus.js"></script>
+    <!-- Test script - only loads in development, comment out for production -->
+   <!-- <script src="test-scenarios.js"></script> -->
+</body>
+</html> 

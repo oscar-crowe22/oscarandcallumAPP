@@ -8,67 +8,133 @@ a {
 }
 
 body {
-    background-color: gainsboro;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+    min-height: 100vh;
+    padding-bottom: 2rem;
 }
 
 #header {
-    height: 10vh;
+    height: 15vh;
     width: 100%;
-    background-color: white;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     margin: 0;
     display: flex;
     align-items: center;      /* Vertically center */
     justify-content: center;  /* Horizontally center */
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25); /* Optional: shadow */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #header-text {
     margin: 0; /* Remove default margin */
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1976d2, #42a5f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
 }
 
 #game-card-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 3rem 2rem;
+    flex-wrap: wrap;
 }
 
 .game-card {
-    width: 30vw;
-    height: 30vh;
-    margin: 10px;
-    background-size: 30%;
-    transition: transform 0.2s ease; /* Smooth scaling */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.75); /* Small subtle shadow */
+    width: 350px;
+    height: 450px;
+    background-repeat: no-repeat;
+    background-position: center 15%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    background-color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .game-card:hover {
-    transform: scale(1.04); /* Increase size by 8% */
-    z-index: 1; /* Optional: bring to front if overlapping */
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+    border-color: rgba(25, 118, 210, 0.3);
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+    border-radius: 18px;
 }
 
 .game-label {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    height: 20%;
-    background-color: white;
-    margin-top: 0%;
-    text-align: center;
-    border: 2px solid black;
-
+    height: 80px;
+    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .game-label-text {
-    font-size: 2vw;
-    color: black;
-    background-color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    font-size: 1.5rem;
+    color: white;
     font-weight: 700;
-    margin-top: 10px;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0;
 }
 
 #piccolo-background {
-    background-image: url(./games/images/piccolo.png);;
+    background-image: url(./games/images/piccolo.png);
+    background-size: cover;
+    background-position: center center;
 }
 
 #blackjack-background {
     background-image: url(./games/art/ace_of_spades.svg);
+    background-size: 65%;
+}
+
+#ride-the-bus-background {
+    background-image: url(./games/images/bus.jpeg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+    #game-card-container {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+    
+    .game-card {
+        width: 300px;
+        height: 400px;
+    }
+    
+    #header-text {
+        font-size: 2rem;
+    }
+    
+    .game-label-text {
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+    }
 }
